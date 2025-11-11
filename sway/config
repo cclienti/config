@@ -1,0 +1,115 @@
+# ==================
+# Sway configuration
+# ==================
+
+### Variables
+set $mod Mod4
+set $term alacritty
+set $menu wofi --show drun
+set $lock swaylock -f -c 000000
+
+### Clavier français
+input * {
+    xkb_layout fr
+    xkb_variant latin9
+    xkb_options caps:escape
+}
+input type:keyboard xkb_numlock on
+
+### Idle configuration
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * dpms off"' \
+              resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+
+### Bar with clock, RAM and Load
+bar {
+    position top
+
+    status_command $HOME/src/sway/sway-status.sh
+
+    colors {
+        statusline #ffffff
+        background #222222
+        inactive_workspace #444444 #444444 #888888
+        focused_workspace  #285577 #285577 #ffffff
+    }
+}
+
+### Key bindings
+bindsym $mod+Return exec $term
+bindsym $mod+k kill
+bindsym Mod1+F4 kill
+bindsym $mod+d exec $menu
+bindsym $mod+l exec $lock
+bindsym $mod+Shift+e exec swaynag -t warning -m \
+        'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' \
+        -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+c reload
+
+# Multimedia keys
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86Search exec bemenu-run
+
+# Moving around
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Layout stuff:
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym F11 fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+Shift+space focus mode_toggle
+
+# move focus to the parent container
+bindsym $mod+a focus parent
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# Resizing containers:
+mode "resize" {
+    bindsym Left resize shrink width 10px
+    bindsym Right resize grow width 10px
+    bindsym Up resize grow height 10px
+    bindsym Down resize shrink height 10px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+### Workspaces
+bindsym Ctrl+Mod1+Left exec $HOME/src/sway/sway-workspace.sh prev
+bindsym Ctrl+Mod1+Right exec $HOME/src/sway/sway-workspace.sh next

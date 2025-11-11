@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Sway (NVIDIA)
+Comment=Session Sway with NVIDIA GBM support
+Exec=/usr/loca/bin/bin/sway-nvidia.sh
+Type=Application
+DesktopNames=sway

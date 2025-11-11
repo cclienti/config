@@ -1,5 +1,9 @@
-# Some bashrc functions
+# My Linux Configurations
 
+This repository gather various configuration file and scripts for
+Linux systems.
 
-This repository provides useful bashrc functions to manage your PS1,
-handle the directory stack, and facilitate out of source builds.
+It contains configurations for:
+- Bash
+- Emacs
+- Sway

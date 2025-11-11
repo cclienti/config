@@ -1,0 +1,7 @@
+[font]
+# Police normale
+normal.family = "Terminus"
+normal.style = "Regular"
+
+# Taille de la police
+size = 12.0

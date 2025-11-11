@@ -28,7 +28,7 @@ exec swayidle -w \
 bar {
     position top
 
-    status_command $HOME/src/sway/sway-status.sh
+    status_command $HOME/src/config/sway/sway-status.sh
 
     colors {
         statusline #ffffff
@@ -111,5 +111,5 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 ### Workspaces
-bindsym Ctrl+Mod1+Left exec $HOME/src/sway/sway-workspace.sh prev
-bindsym Ctrl+Mod1+Right exec $HOME/src/sway/sway-workspace.sh next
+bindsym Ctrl+Mod1+Left exec $HOME/src/config/sway/sway-workspace.sh prev
+bindsym Ctrl+Mod1+Right exec $HOME/src/config/sway/sway-workspace.sh next

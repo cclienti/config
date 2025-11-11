@@ -14,6 +14,17 @@ COLOR_LIGHT_GRAY="\e[0;37m"
 COLOR_NONE="\e[0m"
 COLOR_INVERT="\e[7m"
 
+### Git ############################################
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWCOLORHINTS=1
+
+if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+  source /usr/share/git-core/contrib/completion/git-prompt.sh
+fi
+
 ### PS1 ############################################
 USER_COLOR=${COLOR_LIGHT_GRAY}
 HOST_COLOR=${COLOR_LIGHT_BLUE}${COLOR_INVERT}
@@ -39,19 +50,11 @@ print_conda() {
     echo $CONDA_ENV
 }
 
-parse_git_branch() {
-    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^* \(.*\)/\1/')
-    status=$([[ $(git status --untracked-files=no --porcelain 2> /dev/null) ]] && echo " *")
-    untracked=$([[ ! -z $(git ls-files --others --exclude-standard 2> /dev/null) ]] && echo " +")
-    [[ $branch ]] && echo "[$branch$status$untracked]"
-}
-
 ps1_prompt() {
     ps1_status=$?
-    ps1_git=$(parse_git_branch)
     ps1_venv=$(print_venv)
     ps1_conda=$(print_conda)
-    PS1="${ps1_conda}${ps1_venv}[${USER_COLOR}\u${COLOR_NONE}@${HOST_COLOR}\h${COLOR_NONE}:${PATH_COLOR}\w${COLOR_NONE}]${ps1_git}\n${ps1_status}>>$ "
+    PS1="${ps1_conda}${ps1_venv}[${USER_COLOR}\u${COLOR_NONE}@${HOST_COLOR}\h${COLOR_NONE}:${PATH_COLOR}\w${COLOR_NONE}]$(__git_ps1 ' (%s)')\n${ps1_status}>>$ "
 }
 
 PROMPT_COMMAND="ps1_prompt;$PROMPT_COMMAND"

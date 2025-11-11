@@ -7,6 +7,7 @@ set $mod Mod4
 set $term alacritty
 set $menu wofi --show drun
 set $lock swaylock -f -c 000000
+font pango:Terminus 12
 
 ### Clavier français
 input * {
@@ -26,6 +27,7 @@ exec swayidle -w \
 
 ### Bar with clock, RAM and Load
 bar {
+    font pango:Terminus 12
     position top
 
     status_command $HOME/src/config/sway/sway-status.sh

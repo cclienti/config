@@ -2,6 +2,14 @@
 # Sway configuration
 # ==================
 
+# To get this config working:
+#
+# $ sudo dnf install sway swaylock swayidle wofi alacritty grimp slurp \
+#     swaybg brightnessctl pamixer playerctl terminus-font
+#
+# Place this file in ~/.config/sway/config
+
+
 ### Variables
 set $mod Mod4
 set $term alacritty
@@ -100,6 +108,15 @@ bindsym $mod+a focus parent
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
+
+# Fullscreen screenshot saved to ~/Pictures
+bindsym Print exec grim ~/Pictures/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png
+
+# Select an area to screenshot and save to ~/Pictures
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png
+
+# Select an area to screenshot and copy to clipboard
+bindsym Ctrl+Shift+Print exec grim -g "$(slurp)" - | wl-copy
 
 # Resizing containers:
 mode "resize" {

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+MAX_WORKSPACES=6
+
 # Récupérer le workspace courant de la sortie focalisée
 CUR_WORKSPACE=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .current_workspace')
 
@@ -14,10 +16,10 @@ else
 fi
 
 # Wrap-around
-if [ "$TO_WORKSPACE" -gt 10 ]; then
+if [ "$TO_WORKSPACE" -gt $MAX_WORKSPACES ]; then
     TO_WORKSPACE=1
 elif [ "$TO_WORKSPACE" -lt 1 ]; then
-    TO_WORKSPACE=10
+    TO_WORKSPACE=$MAX_WORKSPACES
 fi
 
 # Switch workspace

@@ -5,7 +5,8 @@
 # To get this config working:
 #
 # $ sudo dnf install sway swaylock swayidle wofi alacritty grimp slurp \
-#     swaybg brightnessctl pamixer playerctl terminus-font
+#     swaybg brightnessctl pamixer playerctl terminus-font waybar \
+#     nm-applet nm-connection-editor pavucontrol
 #
 # Place this file in ~/.config/sway/config
 
@@ -33,20 +34,9 @@ exec swayidle -w \
          before-sleep 'swaylock -f -c 000000'
 
 
-### Bar with clock, RAM and Load
-bar {
-    font pango:Terminus 12
-    position top
-
-    status_command $HOME/src/config/sway/sway-status.sh
-
-    colors {
-        statusline #ffffff
-        background #222222
-        inactive_workspace #444444 #444444 #888888
-        focused_workspace  #285577 #285577 #ffffff
-    }
-}
+### Waybar + nm-applet
+exec waybar
+exec nm-applet --indicator
 
 ### Key bindings
 bindsym $mod+Return exec $term

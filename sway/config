@@ -42,7 +42,7 @@ exec nm-applet --indicator
 bindsym $mod+Return exec $term
 bindsym $mod+k kill
 bindsym Mod1+F4 kill
-bindsym $mod+d exec $menu
+bindsym $mod+o exec $menu
 bindsym $mod+l exec $lock
 bindsym $mod+Shift+e exec swaynag -t warning -m \
         'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' \
